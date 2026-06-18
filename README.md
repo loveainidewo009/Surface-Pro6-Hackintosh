@@ -9,10 +9,21 @@
 
 本项目提供完整的 Surface Pro 6 黑苹果 EFI 配置与详细教程，包含：
 
-- **EFI 文件夹**：OpenCore 1.0.7 引导配置 + 全套驱动
+- **EFI 文件夹**：OpenCore 1.0.7 引导配置 + 全套驱动（仓库主页直接查看）
 - **完整教程**：从安装到双系统维护的每一步详细说明
 - **触屏驱动**：IPTSDaemon 安装与配置指南
 - **备份工具**：R-Drive Image 7 与潇然一键装机助理使用教程
+
+## 📦 下载预打包版本（推荐）
+
+进入 **[Releases 页面](https://github.com/loveainidewo009/Surface-Pro6-Hackintosh/releases)** 下载已打包好的 ZIP 文件：
+
+| 文件 | 版本 | 说明 |
+|---|---|---|
+| `SurfacePro6-OC1.0.7-RELEASE.zip` | RELEASE | ✅ 日常稳定使用，无调试日志 |
+| `SurfacePro6-OC1.0.7-DEBUG.zip` | DEBUG | 🔧 带调试符号，排查问题时使用 |
+
+> 仓库根目录下的 `EFI/` 文件夹始终保持最新版本，如果你想直接查看或按需提取，也可以直接在仓库中浏览。但对于大多数用户，建议下载 Releases 中的 ZIP 包，开箱即用。
 
 ## 使用必读
 
