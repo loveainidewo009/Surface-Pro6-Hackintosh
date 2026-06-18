@@ -41,11 +41,51 @@
 
 ### 1. 序列号必须更换，否则 Apple 服务全废
 
-本 EFI 已随附 OpenCore 三码（序列号、主板序列号、UUID）。**请务必使用 OpenCore Configurator 或 ProperTree 自行生成新序列号并替换。**
+本 EFI 已随附 OpenCore 三码（序列号、主板序列号、UUID）。**请务必自行生成新的三码并替换，切勿直接使用 EFI 中的默认值。**
 
 > **当前 EFI 中的序列号为占位符（FAKESERIAL / FAKEMLB / 00000000-0000-0000-0000-000000000000），必须替换为有效的真实三码，否则无法正常使用 Apple 服务。**
 
 不换序列号的后果：
+
+- iMessage、FaceTime 无法登录
+- App Store 无法下载应用
+- 与他人正在使用的设备产生冲突，可能被苹果列入黑名单（Blacklist）
+
+#### 🔧 Windows 下修改三码详细教程
+
+如果你只有 Windows 电脑，无需 macOS 也能完成三码修改。推荐使用 **OCAT（OC Auxiliary Tools）** 工具，支持 Windows 原生运行：
+
+**📥 下载工具：**
+
+- **OCAT（推荐）：** <https://github.com/ic005k/OCAuxiliaryTools/releases> → 下载 `OCAT-Win64.zip`
+- **ProperTree + GenSMBIOS（备用方案）：** <https://github.com/corpnewt/GenSMBIOS> → 需 Python 环境
+
+**📖 OCAT 操作步骤（Windows）：**
+
+1. **下载并解压** OCAT-Win64.zip，运行 `OCAT.exe`
+2. **打开 config.plist：** 点击菜单栏 **File → Open**，选择你 EFI 文件夹中的 `OC/config.plist`
+3. **找到三码设置：** 点击左侧列表的 **PlatformInfo → Generic**
+4. **生成新三码：**
+   - 在 `SystemProductName` 右侧下拉框中选择机型，Surface Pro 6 对应的机型是 **`MacBookPro14,2`**（已默认填好）
+   - 点击 **"Generate"（生成）** 按钮，工具会自动生成一套全新的三码（SystemSerialNumber、MLB、SystemUUID）
+   - 或者可以多次点击生成，挑一个你喜欢的组合
+5. **保存并替换：** 点击菜单栏 **File → Save**，生成的 config.plist 会直接覆盖保存
+6. **复制回 U 盘/硬盘 ESP 分区：** 将修改好的 EFI 文件夹完整复制到 U 盘或硬盘 ESP 分区
+
+**📖 ProperTree + GenSMBIOS 备用方案（Windows）：**
+
+> 适合熟悉命令行的用户。
+
+1. 下载 **GenSMBIOS**，运行 `GenSMBIOS.bat`
+2. 输入 **1** 选择 "下载 MacSerial"，再输入 **2** 选择 "生成 SMBIOS"
+3. 输入机型 **`MacBookPro14,2`**，工具会生成一组三码
+4. 记录输出的 `Serial`（序列号）、`Board Serial`（MLB）、`SmUUID`（UUID）
+5. 用 **ProperTree** 打开 `config.plist`，导航至 `PlatformInfo → Generic`
+6. 分别将生成的三个值填入对应字段，保存即可
+
+**✅ 验证三码是否生效：**
+
+安装 macOS 后，打开 **系统信息 → 硬件概览**，如果显示的是你生成的序列号而非 `FAKESERIAL`，说明修改成功。也可以登录 iMessage/FaceTime 测试。
 
 - iMessage、FaceTime 无法登录
 - App Store 无法下载应用
@@ -445,7 +485,7 @@ R-Drive Image 7 提供 30 天全功能试用期，对于备份一两次完全足
 
 1. 将 U 盘 ESP 分区中的原 EFI 文件夹删除
 2. 将本教程附带的 **EFI 文件夹**复制到 U 盘 ESP 分区根目录
-3. ⚠️ **重要：** 用 OpenCore Configurator 打开 `EFI/OC/config.plist`，在 `PlatformInfo` 下生成新的序列号、主板序列号、UUID。**当前 config.plist 中的三码为占位符（FAKESERIAL / FAKEMLB / 00000000-0000-0000-0000-000000000000），必须替换，否则无法使用 iMessage、FaceTime 和 App Store。**
+3. ⚠️ **重要：** 修改 `EFI/OC/config.plist` 中的三码（序列号、主板序列号、UUID），详细步骤请参考上文 **【开篇三条铁律 → Windows 下修改三码详细教程】**。**当前 config.plist 中的三码为占位符（FAKESERIAL / FAKEMLB / 00000000-0000-0000-0000-000000000000），必须替换，否则无法使用 iMessage、FaceTime 和 App Store。**
 
 #### 步骤 3：设置 UEFI 引导
 
