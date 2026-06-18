@@ -21,7 +21,7 @@
 | 文件 | 版本 | 说明 |
 |---|---|---|
 | `SurfacePro6-OC1.0.7-RELEASE.zip` | RELEASE | ✅ 日常稳定使用，无调试日志 |
-| `SurfacePro6-OC1.0.7-DEBUG.zip` | DEBUG | 🔧 带调试符号，排查问题时使用 |
+| `Surface.pro-6-EFI-DEBUG.zip` | DEBUG | 🔧 带调试符号，排查问题时使用 |
 
 > 仓库根目录下的 `EFI/` 文件夹始终保持最新版本，如果你想直接查看或按需提取，也可以直接在仓库中浏览。但对于大多数用户，建议下载 Releases 中的 ZIP 包，开箱即用。
 
