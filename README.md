@@ -482,6 +482,8 @@ R-Drive Image 7 提供 30 天全功能试用期，对于备份一两次完全足
 1. 下载 macOS 镜像（`.dmg` 或 `.iso` 格式）
 2. 使用 BalenaEtcher 将镜像写入 U 盘
 3. 写入完成后，用 DiskGenius 或类似工具打开 U 盘的 ESP 分区
+⚠️ 用BalenaEtcher写完镜像后，U盘的EFI分区在"我的电脑"里是看不见的。
+操作：下载 DiskGenius → 左侧找到U盘 → 点击那个几百MB的ESP分区 → 右键删除原EFI文件夹 → 拖入本教程的EFI文件夹即可。
 
 #### 步骤 2：替换 EFI 引导文件
 
@@ -490,7 +492,11 @@ R-Drive Image 7 提供 30 天全功能试用期，对于备份一两次完全足
 3. ⚠️ **重要：** 修改 `EFI/OC/config.plist` 中的三码（序列号、主板序列号、UUID），详细步骤请参考上文 **【开篇三条铁律 → Windows 下修改三码详细教程】**。**当前 config.plist 中的三码为占位符（FAKESERIAL / FAKEMLB / 00000000-0000-0000-0000-000000000000），必须替换，否则无法使用 iMessage、FaceTime 和 App Store。**
 
 #### 步骤 3：设置 UEFI 引导
-
+进入方式：关机 → 按住音量加键不放 → 按电源键开机
+必须修改两项：
+1. Security → Secure Boot → 设为 Disabled（不禁用必定翻车）
+2. Boot Configuration → Enable Boot from USB → 设为 Enabled
+🔑 手机拍照备份原始设置。
 1. 关机，插入 U 盘
 2. 开机时按住**音量减**键（Surface 的 UEFI 引导菜单快捷键）
 3. 选择 **USB 设备**启动
@@ -539,10 +545,13 @@ R-Drive Image 7 提供 30 天全功能试用期，对于备份一两次完全足
 | 进入系统后没有声音 | 检查声卡 `layout-id` 是否设置为 `28`（已在 config 中预设） |
 | 触控板只能单指操作 | 重新安装 VoodooI2C 驱动，并确保 IPTSDaemon 正常运行 |
 | Windows 无法引导 | 进入 OC 界面，选择 Reset NVRAM，重启后再试 |
+| 先重置NVRAM：OC引导界面按空格键 → 选Reset NVRAM|
+| 还不行就开啰嗦模式：选Install macOS后按空格 → 选 -v 启动 → 拍照最后几行代码去提问|
 | 休眠唤醒后黑屏 | 在 macOS 设置中禁用"显示器休眠"，或调整 `pmset` 配置 |
 | 电池电量不显示 | 检查 ACPIBatteryManager.kext 是否加载（已在 config 中配置） |
 | USB 网卡无法连接 | 检查是否已安装对应芯片的驱动（RTL8812BU 驱动在 EFI 压缩包中） |
 | 升级 macOS 后部分功能失效 | 最新系统部分功能受限，建议回退至 Monterey 12.7 |
+
 
 ---
 
